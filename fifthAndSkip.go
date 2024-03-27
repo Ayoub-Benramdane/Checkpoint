@@ -1,5 +1,15 @@
 package main
 
+import (
+	"fmt"
+)
+
+func main() {
+	fmt.Print(FifthAndSkip("abcdefghijklmnopqrstuwxyz"))
+	fmt.Print(FifthAndSkip("This is a short sentence"))
+	fmt.Print(FifthAndSkip("1234"))
+}
+
 func FifthAndSkip(str string) string {
 	var s string
 	for i := 0; i < len(str); i++ {
