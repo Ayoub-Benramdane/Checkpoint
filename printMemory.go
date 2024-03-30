@@ -1,6 +1,10 @@
 package main
 
-import "unicode"
+import (
+	"unicode"
+
+	"github.com/01-edu/z01"
+)
 
 func PrintMemory(arr [10]byte) {
 	base := "0123456789abcdef"
