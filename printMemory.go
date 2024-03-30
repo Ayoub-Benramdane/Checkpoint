@@ -6,6 +6,10 @@ import (
 	"github.com/01-edu/z01"
 )
 
+func main() {
+	PrintMemory([10]byte{'h', 'e', 'l', 'l', 'o', 16, 21, '*'})
+}
+
 func PrintMemory(arr [10]byte) {
 	base := "0123456789abcdef"
 
