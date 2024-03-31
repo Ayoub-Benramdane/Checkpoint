@@ -14,8 +14,23 @@ func main() {
 
 func AtoiBase(s string, base string) int {
 	res := 0
-	for _,c := range s {
-		res = res * len(base) + int(c - '0')
+	count := 0
+	for _, c := range s {
+		count = 0
+		if c >= '0' && c <= '9' {
+			count++
+			res = res*len(base) + int(c-'0')
+		} else {
+			for i := 0; i < len(base); i++ {
+				if rune(base[i]) == '+' || rune(base[i]) == '-' {
+					return 0
+				}
+				if c == rune(base[i]) {
+					count++
+					res = res*len(base) + i
+				}
+			}
+		}
 	}
 	return res
 }
