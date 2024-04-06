@@ -29,7 +29,7 @@ func main() {
 	fmt.Println(res1)
 	for i := 0; i < len(res1); i++ {
 		if len(res1[i]) == 0 {
-			fmt.Println("OK1")
+			fmt.Println("OK")
 		} else {
 			for i := 0; i < len(res); i++ {
 				if res[i] == ")" {
