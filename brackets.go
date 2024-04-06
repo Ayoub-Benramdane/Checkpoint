@@ -22,7 +22,7 @@ func main() {
 		if len(args[i]) == 0 {
 			res1 = append(res1, nil)
 		} else {
-			res1 = append(res1, nil)
+			res1 = append(res1, res)
 		}
 		res = []string{}
 	}
