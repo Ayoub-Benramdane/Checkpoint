@@ -6,62 +6,39 @@ import (
 )
 
 func main() {
-	args := os.Args[1:]
-	if len(args) == 0 {
-		return
-	}
-	res := []string{}
-	res1 := [][]string{}
-	resFinal := []string{}
-	for i := 0; i < len(args); i++ {
-		for j := 0; j < len(args[i]); j++ {
-			if args[i][j] == '(' || args[i][j] == '{' || args[i][j] == '[' || args[i][j] == ')' || args[i][j] == '}' || args[i][j] == ']' {
-				res = append(res, string(args[i][j]))
+	arg := os.Args[1]
+	bracketsOp := []rune{'(', '[', '{'}
+	bracketsClo := []rune{')', ']', '}'}
+	index := []int{}
+	tab := []rune{}
+	for _, c := range arg {
+		for i, b := range bracketsOp {
+			if b == c {
+				tab = append(tab, b)
+				index = append(index, i)
 			}
-		}
-		if len(args[i]) == 0 {
-			res1 = append(res1, nil)
-		} else {
-			res1 = append(res1, res)
-		}
-		res = []string{}
-	}
-
-	for i := 0; i < len(res1); i++ {
-		if len(res1[i])%2 != 0 {
-			resFinal = append(resFinal, "Error")
 			continue
 		}
-		for i := 0; i < len(res); i++ {
-			if res[i] == ")" {
-				if res[i-1] == "(" {
-					res = append(res[:i-1], res[i+1:]...)
-					i -= 2
-				} else {
-					resFinal = append(resFinal, "Error")
-					break
+		for i, v := range bracketsClo {
+			if v == c {
+				if len(tab) == 0 {
+					fmt.Println("Error")
+					os.Exit(0)
 				}
-			} else if res[i] == "}" {
-				if res[i-1] == "{" {
-					res = append(res[:i-1], res[i+1:]...)
-					i -= 2
+				if len(tab) > 0 && i == index[len(index)-1] {
+					tab = tab[:len(tab)-1]
+					index = index[:len(index)-1]
 				} else {
-					resFinal = append(resFinal, "Error")
-					break
-				}
-			} else if res[i] == "]" {
-				if res[i-1] == "[" {
-					res = append(res[:i-1], res[i+1:]...)
-					i -= 2
-				} else {
-					resFinal = append(resFinal, "Error")
-					break
+					fmt.Println("Error")
+					os.Exit(0)
 				}
 			}
 		}
-		resFinal = append(resFinal, "OK")
 	}
-	for i := 0; i < len(resFinal); i++ {
-		fmt.Println(resFinal[i])
+	if len(tab) > 0 {
+		fmt.Println("Error")
+	} else {
+		fmt.Println("OK")
 	}
 }
+
