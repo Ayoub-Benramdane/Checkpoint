@@ -3,25 +3,25 @@ package main
 import "fmt"
 
 func main() {
-	//fmt.Println(FindPrevPrime(225225))
+	fmt.Println(FindPrevPrime(225225))
 	fmt.Println(FindPrevPrime(28))
 }
 
-var c = 0
-
 func FindPrevPrime(nb int) int {
-	c++
-	for i := 2; i < nb; i++ {
-		if nb%i == 0 {
-			fmt.Println(c, nb)
-			nb -= 1
-			i = 2
-			FindPrevPrime(nb)
-		}
-		if nb%i != 0 && i+1 == nb {
-			return nb
-		}
-
+	if !IsPrime(nb) {
+		nb = FindPrevPrime(nb - 1)
 	}
 	return nb
+}
+
+func IsPrime(nb int) bool {
+	if nb <= 1 {
+		return false
+	}
+	for i := 2; i*i <= nb; i++ {
+		if nb%i == 0 {
+			return false
+		}
+	}
+	return true
 }
