@@ -20,7 +20,6 @@ func FindPrevPrime(nb int) int {
 		}
 		if nb%i != 0 && i+1 == nb {
 			return nb
-			break
 		}
 
 	}
