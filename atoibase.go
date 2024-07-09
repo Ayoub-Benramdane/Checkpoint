@@ -14,9 +14,8 @@ func main() {
 
 func AtoiBase(s string, base string) int {
 	res := 0
-	count := 0
 	for _, c := range s {
-		count = 0
+		count := 0
 		if c >= '0' && c <= '9' {
 			count++
 			res = res*len(base) + int(c-'0')
