@@ -6,9 +6,8 @@ import (
 )
 
 func main() {
-	args := os.Args[1:]
-	for i := 0; i < len(args); i++ {
-		fmt.Println(args[len(args)-1])
-		break
+	if len(os.Args) == 1 {
+		return
 	}
+	fmt.Println(os.Args[len(os.Args)-1])
 }

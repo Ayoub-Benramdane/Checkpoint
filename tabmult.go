@@ -6,9 +6,15 @@ import (
 )
 
 func main() {
-	args := os.Args[1:]
+	if len(os.Args) != 2 {
+		return
+	}
+	nb := AToi(os.Args[1])
+	if nb ==0 && os.Args[1] != "0" {
+		return
+	}
 	for i := 1; i <= 9; i++ {
-		fmt.Println(i, "x", args[0], "=", IToa(i*AToi(args[0])))
+		fmt.Println(i, "x", os.Args[1], "=", IToa(i*nb))
 	}
 }
 

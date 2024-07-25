@@ -2,23 +2,33 @@ package main
 
 import (
 	"fmt"
-	"os"
 )
 
 func main() {
-	if len(os.Args) != 2 {
-		return
-	}
-	args := os.Args[1]
+	fmt.Print(LastWord("this        ...       is sparta, then again, maybe    not"))
+	fmt.Print(LastWord(" lorem,ipsum "))
+	fmt.Print(LastWord(" "))
+}
+
+func LastWord(s string) string {
 	res := ""
-	resFinal := ""
-	for i := 0; i < len(args); i++ {
-		if args[i] == ' ' {
+	for i := 0; i < len(s); i++ {
+		if s[i] == ' ' && check(i, s) {
 			res = ""
 			continue
 		}
-		res += string(args[i])
-		resFinal = res
+		if s[i] != ' ' {
+			res += string(s[i])
+		}
 	}
-	fmt.Println(resFinal)
+	return res + "\n"
+}
+
+func check(indice int, s string) bool {
+	for i := indice; i < len(s); i++ {
+		if s[i] != ' ' {
+			return true
+		}
+	}
+	return false
 }

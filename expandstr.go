@@ -6,22 +6,24 @@ import (
 )
 
 func main() {
-	args := os.Args[1:]
+	if len(os.Args) != 2 {
+		return
+	}
 	count := 0
 	res := ""
 	isFirst := true
-	for i := 0; i < len(args[0]); i++ {
-		if args[0][i] != ' ' {
-			isFirst = false
-		}
-		if args[0][i] == ' ' && res != "" {
-			count++
+	for i := 0; i < len(os.Args[1]); i++ {
+		if isFirst && os.Args[1][i] == ' ' {
 			continue
-		} else if count != 0 && isFirst == false {
-			res += "   " + string(args[0][i])
+		}
+		isFirst = false
+		if os.Args[1][i] == ' ' && res != "" {
+			count++
+		} else if count != 0 {
+			res += "   " + string(os.Args[1][i])
 			count = 0
-		} else if count == 0 && args[0][i] != ' ' {
-			res += string(args[0][i])
+		} else {
+			res += string(os.Args[1][i])
 		}
 	}
 	fmt.Println(res)

@@ -6,10 +6,5 @@ import (
 )
 
 func main() {
-	args := os.Args[1:]
-	count := 0
-	for i := 0; i < len(args); i++ {
-		count++
-	}
-	fmt.Println(count)
+	fmt.Println(len(os.Args[1:]))
 }
