@@ -16,12 +16,12 @@ func main() {
 		return
 	}
 	if sign == "+" {
-		if hunAdd(nb1, nb2) {
+		if hundlOverF(nb1, nb2) {
 			return
 		}
 		res = nb1 + nb2
 	} else if sign == "-" {
-		if hunSub(nb1, nb2) {
+		if hundlOverF(nb1, nb2) {
 			return
 		}
 		res = nb1 - nb2
@@ -87,22 +87,16 @@ func iToa(nb int) string {
 	return sign + res
 }
 
-func hunAdd(nb1, nb2 int) bool {
-	if nb2 > 0 && (nb1 > 9223372036854775807-nb2 || nb2 > 9223372036854775807-nb1) {
-		return true
-	}
-	if nb2 < 0 && (nb1 < -9223372036854775808-nb2 || nb2 < -9223372036854775808-nb1) {
+func hundlOverF(nb1, nb2 int) bool {
+	if nb1 > 0 && nb2 > 0 && (max(nb1, nb2) > 9223372036854775807-(nb1+nb2-max(nb1, nb2))) || (nb1+nb2-max(nb1, nb2) < -9223372036854775808+max(nb1, nb2)) {
 		return true
 	}
 	return false
 }
 
-func hunSub(nb1, nb2 int) bool {
-	if nb2 > 0 && (nb1 > 9223372036854775807-nb2 || nb2 > 9223372036854775807-nb1) {
-		return true
+func max(a, b int) int {
+	if a > b {
+		return a
 	}
-	if nb2 < 0 && (nb1 < -9223372036854775808-nb2 || nb2 < -9223372036854775808-nb1) {
-		return true
-	}
-	return false
+	return b
 }
