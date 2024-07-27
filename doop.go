@@ -31,7 +31,7 @@ func main() {
 			return
 		}
 		res = nb1 / nb2
-		if res*nb1 != nb2 {
+		if res*nb2 != nb1 {
 			return
 		}
 	} else if sign == "%" {
@@ -46,7 +46,7 @@ func main() {
 			return
 		}
 	} else {
-		os.Stdout.WriteString("")
+		return
 	}
 	os.Stdout.WriteString(iToa(res))
 }
