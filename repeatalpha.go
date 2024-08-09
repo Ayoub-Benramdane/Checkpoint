@@ -2,25 +2,31 @@ package main
 
 import (
 	"fmt"
-	"os"
 )
 
 func main() {
-	if len(os.Args) != 2 {
-		return
-	}
-	args := os.Args[1]
-	for i := 0; i < len(args); i++ {
-		if args[i] >= 'a' && args[i] <= 'z' {
-			for j := 0; j <= int(args[i]-97); j++ {
-				fmt.Printf(string(args[i]))
-			}
-		} else if args[i] >= 'A' && args[i] <= 'Z' {
-			for j := 0; j <= int(args[i]-65); j++ {
-				fmt.Printf(string(args[i]))
-			}
-		} else {
-			fmt.Printf(string(args[i]))
+	fmt.Println(RepeatAlpha("abc"))
+	fmt.Println(RepeatAlpha("Choumi."))
+	fmt.Println(RepeatAlpha(""))
+	fmt.Println(RepeatAlpha("abacadaba 01!"))
+}
+
+func RepeatAlpha(s string) string {
+	count := 0
+	str := ""
+	for _, c := range s {
+		if c >= 'a' && c <= 'z' {
+			count = int(c - 'a' + 1)
+		} else if c >= 'A' && c <= 'Z' {
+			count = int(c - 'A' + 1)
+		}
+		if count == 0 {
+			str += string(c)
+		}
+		for count > 0 {
+			str += string(c)
+			count--
 		}
 	}
+	return str
 }

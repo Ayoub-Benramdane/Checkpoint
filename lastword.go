@@ -11,22 +11,20 @@ func main() {
 }
 
 func LastWord(s string) string {
-	res := ""
-	for i := 0; i < len(s); i++ {
-		if s[i] == ' ' && check(i, s) {
-			res = ""
-			continue
-		}
-		if s[i] != ' ' {
-			res += string(s[i])
+	str := ""
+	for i, c := range s {
+		if c == ' ' && checkAlpha(s, i) {
+			str = ""
+		} else {
+			str += string(c)
 		}
 	}
-	return res + "\n"
+	return str + "\n"
 }
 
-func check(indice int, s string) bool {
+func checkAlpha(s string, indice int) bool {
 	for i := indice; i < len(s); i++ {
-		if s[i] != ' ' {
+		if s[i] > 32 && s[i] < 127 {
 			return true
 		}
 	}

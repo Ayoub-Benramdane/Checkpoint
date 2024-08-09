@@ -6,22 +6,29 @@ import (
 )
 
 func main() {
-	if len(os.Args[1:]) != 1 {
+	if len(os.Args) != 2 {
 		return
 	}
-	arg := os.Args[1]
-	res := ""
-	resFinal := ""
-	for i := 0; i < len(arg); i++ {
-		if  i == len(arg)-1 {
-			res += string(arg[i])
-			resFinal = res + " " + resFinal
-		} else if arg[i] != ' ' {
-			res += string(arg[i])
-		} else if res != "" {
-			resFinal = res + " " + resFinal
-			res = ""
+	res := []string{}
+	str := ""
+	for i, c := range os.Args[1] {
+		if c == ' ' || i == len(os.Args[1])-1 {
+			if c != ' ' {
+				str += string(c)
+			}
+			if str != "" {
+				res = append(res, str)
+				str = ""
+			}
+		} else {
+			str += string(c)
 		}
 	}
-	fmt.Println(resFinal)
+	for i := len(res) - 1; i >= 0; i-- {
+		str += res[i]
+		if i != 0 {
+			str += " "
+		}
+	}
+	fmt.Println(str)
 }

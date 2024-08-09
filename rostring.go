@@ -6,30 +6,45 @@ import (
 )
 
 func main() {
-	if len(os.Args[1:]) != 1 {
+	if len(os.Args) != 2 {
 		return
 	}
-	arg := os.Args[1]
-	res := ""
-	resFinal := ""
-	count := 0
-	count1 := 0
-	for i := 0; i < len(arg); i++ {
-		if arg[i] != ' ' && count == 0 {
-			res += string(arg[i])
-		} else if res != "" {
-			count++
-			if arg[i] != ' ' {
-				count1 = 0
-				resFinal += string(arg[i])
-			} else {
-				if count1 == 0 && resFinal != "" {
-					count1++
-					resFinal += " "
-				}
+	f_w := false
+	var fWord, str, strFinal string
+	for i, c := range os.Args[1] {
+		if c == ' ' || i == len(os.Args[1])-1 {
+			if c != ' ' {
+				str += string(c)
 			}
+			if str != "" {
+				if !f_w {
+					fWord = str
+					f_w = true
+				} else {
+					strFinal += str
+					if check(os.Args[1], i+1) {
+						strFinal += " "
+					}
+				}
+				str = ""
+			}
+			if i == len(os.Args[1])-1 && fWord != "" && strFinal != "" {
+				strFinal += " " + fWord
+			} else if i == len(os.Args[1])-1 && fWord != "" {
+				strFinal += fWord
+			}
+		} else {
+			str += string(c)
 		}
 	}
-	resFinal += " " + res
-	fmt.Println(resFinal)
+	fmt.Println(strFinal)
+}
+
+func check(s string, indice int) bool {
+	for i := indice; i < len(s); i++ {
+		if s[i] > 32 && s[i] < 127 {
+			return true
+		}
+	}
+	return false
 }

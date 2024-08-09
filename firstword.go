@@ -2,20 +2,21 @@ package main
 
 import (
 	"fmt"
-	"os"
 )
 
 func main() {
-	if len(os.Args) != 2 {
-		return
-	}
-	args := os.Args[1]
-	res := ""
-	for i := 0; i < len(args); i++ {
-		if args[i] == ' ' {
-			break
+	fmt.Print(FirstWord("hello there"))
+	fmt.Print(FirstWord(""))
+	fmt.Print(FirstWord("hello   .........  bye"))
+}
+
+func FirstWord(s string) string {
+	str := ""
+	for _, c := range s {
+		if c == ' ' {
+			return str + "\n"
 		}
-		res += string(args[i])
+		str += string(c)
 	}
-	fmt.Println(res)
+	return str + "\n"
 }

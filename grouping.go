@@ -6,48 +6,46 @@ import (
 )
 
 func main() {
-	if len(os.Args[1:]) != 2 {
+	if len(os.Args) != 3 {
 		return
 	}
-	arg1 := os.Args[1]
-	arg2 := os.Args[2]
-	res0 := ""
+	expressions := []string{}
+	exp := ""
 	res := []string{}
-	res1 := ""
-	resFinal := []string{}
-	if arg1[0] != '(' || arg1[len(arg1)-1] != ')' {
-		return
-	}
-	for _, c := range arg1 {
-		if c != '|' && c != '(' && c != ')' {
-			res0 += string(c)
-		} else {
-			if c != '(' {
-				res = append(res, res0)
-			}
-			res0 = ""
+	exist := false
+	for i, c := range os.Args[1] {
+		if i == 0 && c != '(' || i == len(os.Args[1])-1 && c != ')' {
+			return
+		}
+		if c != '(' && c != ')' && c != '|' {
+			exp += string(c)
+		} else if exp != "" {
+			expressions = append(expressions, exp)
+			exp = ""
 		}
 	}
-	for i, c := range arg2 {
-		if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '’' || c == '\'') && i < len(arg2)-1 {
-			res1 += string(c)
-		} else {
-			if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '’' || c == '\'') && i == len(arg2)-1 {
-				res1 += string(c)
-			}
-			for j := 0; j < len(res); j++ {
-				for i := 0; i < len(res1)-len(res[j])+1; i++ {
-					if res[j] == string(res1[i:i+len(res[j])]) {
-						resFinal = append(resFinal, res1)
+	for i, v := range os.Args[2] {
+		if v >= 'a' && v <= 'z' || v >= 'A' && v <= 'Z' || v == '’' || v == '\'' {
+			exp += string(v)
+		}
+		if exp != "" && (v == ' ' || i == len(os.Args[2])-1) {
+			for _, c := range expressions {
+				for i := 0; i <= len(exp)-len(c); i++ {
+					if exp[i:i+len(c)] == c {
+						exist = true
+					}
+					if exist {
+						res = append(res, exp)
+						exist = false
 						break
 					}
 				}
 			}
-			res1 = ""
+			exp = ""
 		}
 	}
-	for i := 0; i < len(resFinal); i++ {
-		fmt.Printf("%d: %v", i+1, resFinal[i])
+	for i, c := range res {
+		fmt.Printf("%d: %v", i+1, c)
 		fmt.Println()
 	}
 }
